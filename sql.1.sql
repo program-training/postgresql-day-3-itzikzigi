@@ -14,7 +14,9 @@ ON products.product_id = order_details.product_id
 GROUP BY category_name
 
 --3
-WITH sum_of AS (SELECT SUM(unit_price*(1-discount)*quantity) AS res, order_id FROM order_details GROUP BY order_id)
+WITH sum_of AS (SELECT SUM(unit_price*(1-discount)*quantity) AS res, order_id 
+FROM order_details 
+GROUP BY order_id)
 SELECT contact_name AS customer_name , ROUND(AVG(sum_of.res)) AS avarage
 FROM customers JOIN orders
 ON customers.customer_id = orders.customer_id
