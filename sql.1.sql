@@ -17,13 +17,13 @@ GROUP BY category_name
 WITH sum_of AS (SELECT SUM(unit_price*(1-discount)*quantity) AS res, order_id 
 FROM order_details 
 GROUP BY order_id)
-SELECT contact_name AS customer_name , ROUND(AVG(sum_of.res)) AS avarage
+SELECT contact_name AS customer_name , ROUND(AVG(sum_of.res)) AS average
 FROM customers JOIN orders
 ON customers.customer_id = orders.customer_id
 JOIN sum_of
 ON orders.order_id = sum_of.order_id
 GROUP BY customer_name
-ORDER BY avarage DESC
+ORDER BY average DESC
 
 
 
@@ -38,7 +38,7 @@ ORDER BY total_spending DESC
 LIMIT 10
 
 --5
-SELECT ROUND(SUM(unit_price*(1-discount)*quantity)) AS total_per_mounth, EXTRACT(MONTH FROM order_date) AS month
+SELECT ROUND(SUM(unit_price*(1-discount)*quantity)) AS total_per_month, EXTRACT(MONTH FROM order_date) AS month
 FROM order_details JOIN orders 
 ON orders.order_id = order_details.order_id
 GROUP BY month
